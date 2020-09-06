@@ -1,0 +1,549 @@
+{
+  "openapi": "3.0.2",
+  "tags": [],
+  "info": {
+    "title": "CY2 Black Box - Client",
+    "version": "1.0.0",
+    "description": "Client API to the CY2 Hub",
+    "contact": {
+      "url": "https://cy2.nl"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.cy2hub.app/v1",
+      "description": ""
+    }
+  ],
+  "paths": {
+    "/oprids": {
+      "summary": "Path used to manage the list of oprids.",
+      "description": "The REST endpoint/path used to list and create zero or more `oprid` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
+      "get": {
+        "parameters": [
+          {
+            "name": "active",
+            "description": "Retrive either active or inactive OPRIDs",
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/oprid"
+                  }
+                }
+              }
+            },
+            "description": "Successful response - returns an array of `oprid` entities."
+          }
+        },
+        "operationId": "getoprids",
+        "summary": "List All OPRIDs",
+        "description": "Gets a list of all `oprid` entities."
+      }
+    },
+    "/messages/{messageId}": {
+      "summary": "Path used to manage a single message.",
+      "description": "The REST endpoint/path used to get, update, and delete single instances of an `message`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageResponse"
+                },
+                "examples": {
+                  "success": {
+                    "value": {
+                      "users": [
+                        "0012345",
+                        "0012346"
+                      ],
+                      "type": 101,
+                      "id": "03e2eebe-2712-4eba-8213-bed5876c0cb1",
+                      "status": "S"
+                    }
+                  },
+                  "error": {
+                    "value": {
+                      "users": [
+                        "0012345",
+                        "0012346"
+                      ],
+                      "type": 101,
+                      "id": "03e2eebe-2712-4eba-8213-bed5876c0cb1",
+                      "status": "E",
+                      "error": "too many messages sent"
+                    }
+                  },
+                  "application error": {
+                    "value": {
+                      "users": [
+                        "0012345",
+                        "0012346"
+                      ],
+                      "type": 101,
+                      "id": "03e2eebe-2712-4eba-8213-bed5876c0cb1",
+                      "status": "U",
+                      "applicationErrors": [
+                        {
+                          "oprid": "0012345",
+                          "application": "MS-Teams",
+                          "messageId": "03e2eebe-2712-4eba-8213-bed5876c0cb1",
+                          "applicationMessageId": "69a098a6-497a-4eb9-b74c-b97d3a2a6ace",
+                          "error": "something went wrong sending to MS Teams"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Successful response - returns a single `message`."
+          },
+          "404": {
+            "description": "The `message` was not found."
+          }
+        },
+        "operationId": "getmessage",
+        "summary": "Get a message",
+        "description": "Gets the details of a single instance of a `message`."
+      },
+      "parameters": [
+        {
+          "name": "messageId",
+          "description": "A unique identifier for a `message`.",
+          "schema": {
+            "type": "string"
+          },
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
+    "/messages": {
+      "summary": "Path used to manage the list of messages.",
+      "description": "The REST endpoint/path used to list and create zero or more `message` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
+      "post": {
+        "requestBody": {
+          "description": "A new `message` to be created.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/message"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageResponse"
+                },
+                "examples": {
+                  "message created": {
+                    "value": {
+                      "users": [
+                        "0012345",
+                        "0012345"
+                      ],
+                      "type": 101,
+                      "id": "03e2eebe-2712-4eba-8213-bed5876c0cb1",
+                      "status": "C"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Successful response."
+          }
+        },
+        "operationId": "createmessage",
+        "summary": "Create a message",
+        "description": "Creates a new instance of a `message`."
+      }
+    },
+    "/oprids/{oprid}": {
+      "summary": "Path used to manage a single oprid.",
+      "description": "The REST endpoint/path used to get, update, and delete single instances of an `oprid`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/opridResponse"
+                }
+              }
+            },
+            "description": "Successful response - returns a single `oprid`."
+          },
+          "404": {
+            "description": " `oprid` was not found."
+          }
+        },
+        "operationId": "getoprid",
+        "summary": "Get an OPRID",
+        "description": "Gets the details of a single instance of an `oprid`."
+      },
+      "put": {
+        "requestBody": {
+          "description": "Updated `oprid` information.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/opridResponse"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful response."
+          }
+        },
+        "operationId": "updateoprid",
+        "summary": "Create or update an OPRID",
+        "description": "Updates an existing `oprid`."
+      },
+      "delete": {
+        "responses": {
+          "204": {
+            "description": "Successful response."
+          }
+        },
+        "operationId": "deleteoprid",
+        "summary": "Delete a oprid",
+        "description": "Deletes an existing `oprid`."
+      },
+      "parameters": [
+        {
+          "name": "oprid",
+          "description": "A PeopleSOft OPRID.",
+          "schema": {
+            "type": "string"
+          },
+          "in": "path",
+          "required": true
+        }
+      ]
+    }
+  },
+  "components": {
+    "schemas": {
+      "message": {
+        "title": "Root Type for message",
+        "description": "A message sent from PeopleSoft to the CY2 Hub that is then forwarded to requested PeopleSoft users.{",
+        "type": "object",
+        "example": {
+          "users": [
+            "0012345",
+            "0012346"
+          ],
+          "type": 101,
+          "message": "some message"
+        },
+        "properties": {
+          "users": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The type of message sent:\n\n|Type|Description|\n| --- | ----------- |\n|101|Notification|\n|201|Alert|",
+            "enum": [
+              101,
+              201
+            ],
+            "minimum": 101,
+            "maximum": 999
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "users",
+          "type",
+          "message"
+        ]
+      },
+      "requestError": {
+        "title": "Root Type for error",
+        "description": "Error response",
+        "type": "object",
+        "properties": {
+          "error": {
+            "description": "Error message",
+            "type": "string"
+          }
+        },
+        "example": {
+          "error": "error message"
+        }
+      },
+      "attribute": {
+        "title": "Root Type for attribute",
+        "description": "A key/value pair representing an application attribute.",
+        "required": [
+          "name",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "description": "The attribute value",
+            "type": "string"
+          },
+          "name": {
+            "description": "The attribute name.",
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "some attribute name",
+          "value": "some attribute value"
+        },
+        "x-examples": {}
+      },
+      "mapping": {
+        "title": "Root Type for mappings",
+        "description": "Application accounts belong to the user",
+        "required": [
+          "application",
+          "enabled",
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "application": {
+            "description": "The application ID.",
+            "type": "string"
+          },
+          "enabled": {
+            "description": "Is the application enabled or not for this OPRID.",
+            "type": "boolean"
+          },
+          "id": {
+            "description": "The user ID for the given application",
+            "type": "string"
+          },
+          "attributes": {
+            "description": "Additional application attributes",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/attribute"
+            }
+          }
+        },
+        "example": {
+          "id": "ee0613a4-ae44-4119-9886-52523012c93b",
+          "application": "MSTeams",
+          "enabled": true
+        }
+      },
+      "opridResponse": {
+        "description": "PeopleSoft Oprid",
+        "type": "object",
+        "allOf": [
+          {
+            "required": [
+              "id",
+              "active"
+            ],
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "The PeopleSoft OPRID",
+                "type": "string"
+              },
+              "mappings": {
+                "description": "Application mappings",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/mapping"
+                }
+              },
+              "active": {
+                "description": "Is the OPRID active, that is, can it recieve messages",
+                "type": "boolean"
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/oprid"
+          }
+        ],
+        "example": {
+          "id": "0012345",
+          "active": true,
+          "mappings": [
+            {
+              "application": "MSTeams",
+              "enabled": true,
+              "id": "e52b0002-25d1-4c22-9c14-20657f40bf47",
+              "attributes": []
+            }
+          ]
+        }
+      },
+      "oprid": {
+        "title": "Root Type for oprid",
+        "description": "",
+        "required": [
+          "active",
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "The PeopleSoft OPRID",
+            "type": "string"
+          },
+          "active": {
+            "description": "This the `oprid` active",
+            "type": "boolean"
+          }
+        },
+        "example": {
+          "id": "0012345",
+          "active": true
+        }
+      },
+      "messageResponse": {
+        "description": "",
+        "example": {
+          "users": [
+            "0012345",
+            "0012346"
+          ],
+          "type": 101,
+          "id": "03e2eebe-2712-4eba-8213-bed5876c0cb1",
+          "status": "C"
+        },
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Message ID",
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "description": "The status of the message:\n\n| Code | Description |\n| --- | ----------- |\n| C | Created |\n| U | User application errors  |\n| E | Error creating message |\n| S | Success |\n\n",
+            "enum": [
+              "C",
+              "S",
+              "E",
+              "U"
+            ]
+          },
+          "error": {
+            "description": "Error creating or processing the message",
+            "type": "string"
+          },
+          "applicationErrors": {
+            "description": "Any errors that occured",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/applicationError"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "status"
+        ]
+      },
+      "applicationError": {
+        "title": "Root Type for messageError",
+        "description": "An error occured sending a message to a user",
+        "type": "object",
+        "example": {
+          "oprid": "0012345",
+          "application": "MS-Teams",
+          "messageId": "69a098a6-497a-4eb9-b74c-b97d3a2a6ace",
+          "applicationMessageId": "03e2eebe-2712-4eba-8213-bed5876c0cb1",
+          "error": "something went wrong"
+        },
+        "properties": {
+          "oprid": {
+            "description": "The PeopleSoft OPRID the message sent to.",
+            "type": "string"
+          },
+          "messageId": {
+            "description": "The ID of the message sent from PeopleSoft.",
+            "type": "string"
+          },
+          "error": {
+            "description": "An error message if an error occured processing the message from PeopleSoft.",
+            "type": "string"
+          },
+          "application": {
+            "description": "The ID of the message sent to the requested application.",
+            "type": "string"
+          },
+          "applicationMessageId": {
+            "description": "The ID of the message sent to the requested application.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "oprid",
+          "messageId",
+          "error",
+          "application",
+          "applicationMessageId"
+        ]
+      }
+    },
+    "responses": {
+      "error": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/requestError"
+            },
+            "examples": {
+              "Error": {
+                "value": {
+                  "error": "something bad happened"
+                }
+              }
+            }
+          }
+        },
+        "description": "Any error response"
+      }
+    },
+    "securitySchemes": {
+      "API-Key": {
+        "type": "apiKey",
+        "description": "Client API Key",
+        "name": "X-Api-Key",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "API-Key": []
+    }
+  ]
+}
