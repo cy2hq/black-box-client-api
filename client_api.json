@@ -15,39 +15,49 @@
     }
   ],
   "paths": {
-    "/oprids": {
-      "summary": "Path used to manage the list of oprids.",
-      "description": "The REST endpoint/path used to list and create zero or more `oprid` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
-      "get": {
-        "parameters": [
-          {
-            "name": "active",
-            "description": "Retrive either active or inactive OPRIDs",
-            "schema": {
-              "type": "boolean"
-            },
-            "in": "query",
-            "required": false
-          }
-        ],
+    "/messages": {
+      "summary": "Path used to manage the list of messages.",
+      "description": "The REST endpoint/path used to list and create zero or more `message` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
+      "post": {
+        "requestBody": {
+          "description": "A new `message` to be created.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/message"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
-          "200": {
+          "201": {
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/oprid"
+                  "$ref": "#/components/schemas/messageResponse"
+                },
+                "examples": {
+                  "message created": {
+                    "value": {
+                      "users": [
+                        "0012345",
+                        "0012345"
+                      ],
+                      "type": 101,
+                      "id": "03e2eebe-2712-4eba-8213-bed5876c0cb1",
+                      "status": "C"
+                    }
                   }
                 }
               }
             },
-            "description": "Successful response - returns an array of `oprid` entities."
+            "description": "Successful response."
           }
         },
-        "operationId": "getoprids",
-        "summary": "List All OPRIDs",
-        "description": "Gets a list of all `oprid` entities."
+        "operationId": "createmessage",
+        "summary": "Create a message",
+        "description": "Creates a new instance of a `message`."
       }
     },
     "/messages/{messageId}": {
@@ -130,49 +140,39 @@
         }
       ]
     },
-    "/messages": {
-      "summary": "Path used to manage the list of messages.",
-      "description": "The REST endpoint/path used to list and create zero or more `message` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
-      "post": {
-        "requestBody": {
-          "description": "A new `message` to be created.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/message"
-              }
-            }
-          },
-          "required": true
-        },
+    "/oprids": {
+      "summary": "Path used to manage the list of oprids.",
+      "description": "The REST endpoint/path used to list and create zero or more `oprid` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
+      "get": {
+        "parameters": [
+          {
+            "name": "active",
+            "description": "Retrive either active or inactive OPRIDs",
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "required": false
+          }
+        ],
         "responses": {
-          "201": {
+          "200": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/messageResponse"
-                },
-                "examples": {
-                  "message created": {
-                    "value": {
-                      "users": [
-                        "0012345",
-                        "0012345"
-                      ],
-                      "type": 101,
-                      "id": "03e2eebe-2712-4eba-8213-bed5876c0cb1",
-                      "status": "C"
-                    }
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/oprid"
                   }
                 }
               }
             },
-            "description": "Successful response."
+            "description": "Successful response - returns an array of `oprid` entities."
           }
         },
-        "operationId": "createmessage",
-        "summary": "Create a message",
-        "description": "Creates a new instance of a `message`."
+        "operationId": "getoprids",
+        "summary": "List All OPRIDs",
+        "description": "Gets a list of all `oprid` entities."
       }
     },
     "/oprids/{oprid}": {
@@ -281,7 +281,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/opridResponse"
+                "$ref": "#/components/schemas/mapping"
               }
             }
           },
