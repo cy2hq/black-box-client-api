@@ -30,6 +30,9 @@
           },
           "required": true
         },
+        "tags": [
+          "default"
+        ],
         "responses": {
           "201": {
             "content": {
@@ -55,7 +58,7 @@
             "description": "Successful response."
           }
         },
-        "operationId": "createmessage",
+        "operationId": "create-message",
         "summary": "Create a message",
         "description": "Creates a new instance of a `message`."
       }
@@ -64,6 +67,9 @@
       "summary": "Path used to manage a single message.",
       "description": "The REST endpoint/path used to get, update, and delete single instances of an `message`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
       "get": {
+        "tags": [
+          "default"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -124,7 +130,7 @@
             "description": "The `message` was not found."
           }
         },
-        "operationId": "getmessage",
+        "operationId": "get-message",
         "summary": "Get a message",
         "description": "Gets the details of a single instance of a `message`."
       },
@@ -144,6 +150,9 @@
       "summary": "Path used to manage the list of oprids.",
       "description": "The REST endpoint/path used to list and create zero or more `oprid` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
       "get": {
+        "tags": [
+          "default"
+        ],
         "parameters": [
           {
             "name": "active",
@@ -170,7 +179,7 @@
             "description": "Successful response - returns an array of `oprid` entities."
           }
         },
-        "operationId": "getoprids",
+        "operationId": "get-oprids",
         "summary": "List All OPRIDs",
         "description": "Gets a list of all `oprid` entities."
       }
@@ -179,6 +188,9 @@
       "summary": "Path used to manage a single oprid.",
       "description": "The REST endpoint/path used to get, update, and delete single instances of an `oprid`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
       "get": {
+        "tags": [
+          "default"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -194,7 +206,7 @@
             "description": " `oprid` was not found."
           }
         },
-        "operationId": "getoprid",
+        "operationId": "get-oprid",
         "summary": "Get an OPRID",
         "description": "Gets the details of a single instance of an `oprid`."
       },
@@ -210,22 +222,28 @@
           },
           "required": true
         },
+        "tags": [
+          "default"
+        ],
         "responses": {
           "202": {
             "description": "Successful response."
           }
         },
-        "operationId": "updateoprid",
+        "operationId": "update-oprid",
         "summary": "Create or update an OPRID",
         "description": "Updates an existing `oprid`."
       },
       "delete": {
+        "tags": [
+          "default"
+        ],
         "responses": {
           "204": {
             "description": "Successful response."
           }
         },
-        "operationId": "deleteoprid",
+        "operationId": "delete-oprid",
         "summary": "Delete a oprid",
         "description": "Deletes an existing `oprid`."
       },
@@ -241,43 +259,32 @@
         }
       ]
     },
-    "/oprids/{oprid}/teams": {
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "oprid",
-          "in": "path",
-          "required": true
-        }
-      ],
+    "/oprids/{oprid}/mappings/": {
+      "summary": "Path to manage `oprid' application mappings",
       "get": {
-        "summary": "Get a MS Teams Mapping for an OPRID",
-        "tags": [],
+        "tags": [
+          "default"
+        ],
         "responses": {
           "200": {
-            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/mapping"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/mapping"
+                  }
                 }
               }
-            }
-          },
-          "404": {
-            "description": "Not Found"
+            },
+            "description": "All mappings for the `oprid` have been retrieved."
           }
         },
-        "operationId": "get-oprids-oprid-teams",
-        "description": "Gets the MS Teams mapping for an `oprid`."
+        "operationId": "get-oprid-mappigs",
+        "summary": "Get all application mappings for an OPRID"
       },
-      "put": {
-        "summary": "Create or Replace MS Teams Mapping for an OPRID",
-        "operationId": "put-oprids-oprid-teams",
+      "post": {
         "requestBody": {
-          "description": "Updated MS Teams`mapping` information.",
           "content": {
             "application/json": {
               "schema": {
@@ -287,13 +294,117 @@
           },
           "required": true
         },
+        "tags": [
+          "default"
+        ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mapping"
+                }
+              }
+            },
+            "description": "The mapping has been created."
           }
         },
-        "description": "Create or update the MS Teams mapping for an `oprid`."
-      }
+        "operationId": "post-oprid-mapping",
+        "summary": "Create a mapping for the given application."
+      },
+      "parameters": [
+        {
+          "name": "oprid",
+          "schema": {
+            "type": "string"
+          },
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
+    "/oprids/{oprid}/mappings/{id}": {
+      "summary": "Path used to manage a single `oprid` application mapping.",
+      "get": {
+        "tags": [
+          "default"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mapping"
+                }
+              }
+            },
+            "description": "The requested `oprid` application mapping."
+          },
+          "404": {
+            "description": "The requested mapping does not exist."
+          }
+        },
+        "operationId": "get-oprid-mapping",
+        "summary": "Get an OPRID application mapping."
+      },
+      "put": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/mapping"
+              }
+            }
+          },
+          "required": true
+        },
+        "tags": [
+          "default"
+        ],
+        "responses": {
+          "200": {
+            "description": "The mapping has been updated."
+          },
+          "404": {
+            "description": "The requested mapping does not exist."
+          }
+        },
+        "operationId": "update-oprid-mapping",
+        "summary": "Update the OPRID application mapping."
+      },
+      "delete": {
+        "tags": [
+          "default"
+        ],
+        "responses": {
+          "200": {
+            "description": "The mapping has been deleted."
+          },
+          "404": {
+            "description": "The requested mapping does not exist."
+          }
+        },
+        "operationId": "delete-oprid-mapping",
+        "summary": "Delete the OPRID application mapping."
+      },
+      "parameters": [
+        {
+          "name": "oprid",
+          "schema": {
+            "type": "string"
+          },
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "id",
+          "schema": {
+            "type": "string"
+          },
+          "in": "path",
+          "required": true
+        }
+      ]
     }
   },
   "components": {
@@ -375,12 +486,12 @@
         "required": [
           "application",
           "enabled",
-          "id"
+          "clientId"
         ],
         "type": "object",
         "properties": {
           "application": {
-            "description": "The application ID.",
+            "description": "The application being mapped.",
             "type": "string"
           },
           "enabled": {
@@ -388,7 +499,7 @@
             "type": "boolean"
           },
           "id": {
-            "description": "The user ID for the given application",
+            "description": "The OPRID/Application mapping ID.",
             "type": "string"
           },
           "attributes": {
@@ -397,11 +508,16 @@
             "items": {
               "$ref": "#/components/schemas/attribute"
             }
+          },
+          "clientId": {
+            "description": "The user's ID for the given application.",
+            "type": "string"
           }
         },
         "example": {
           "id": "ee0613a4-ae44-4119-9886-52523012c93b",
           "application": "MSTeams",
+          "clientId": "8f22edc2-3f2e-4324-a4cf-8f0d21e5a0b1",
           "enabled": true
         }
       },
@@ -577,6 +693,12 @@
   "security": [
     {
       "API-Key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "default",
+      "description": ""
     }
   ]
 }
