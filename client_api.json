@@ -56,6 +56,9 @@
               }
             },
             "description": "Successful response."
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
           }
         },
         "operationId": "create-message",
@@ -228,6 +231,9 @@
         "responses": {
           "202": {
             "description": "Successful response."
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
           }
         },
         "operationId": "update-oprid",
@@ -307,6 +313,9 @@
               }
             },
             "description": "The mapping has been created."
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
           }
         },
         "operationId": "post-oprid-mapping",
@@ -364,6 +373,9 @@
         "responses": {
           "200": {
             "description": "The mapping has been updated."
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
           },
           "404": {
             "description": "The requested mapping does not exist."
