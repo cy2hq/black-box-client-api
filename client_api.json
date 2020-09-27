@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "https://api.cy2hub.app/v1",
+      "url": "https://dev.cy2hub.app/v1",
       "description": ""
     }
   ],
