@@ -250,7 +250,7 @@
           }
         },
         "operationId": "delete-oprid",
-        "summary": "Delete a oprid",
+        "summary": "Delete a OPRID",
         "description": "Deletes an existing `oprid`."
       },
       "parameters": [
