@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.2",
   "info": {
-    "title": "CY2 Black Box - Client",
+    "title": "CY2 Connect",
     "version": "1.0.0",
-    "description": "Client API to the CY2 Hub",
+    "description": "Client API to the CY2 Connect",
     "contact": {
       "url": "https://cy2.nl"
     }
