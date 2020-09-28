@@ -74,7 +74,7 @@
         "description": "Creates a new instance of a `message`."
       }
     },
-    "/messages/{messageId}": {
+    "/messages/{message}": {
       "summary": "Path used to manage a single message.",
       "description": "The REST endpoint/path used to get, update, and delete single instances of an `message`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
       "get": {
@@ -123,7 +123,7 @@
                       "status": "U",
                       "applicationErrors": [
                         {
-                          "oprid": "0012345",
+                          "user": "0012345",
                           "application": "MS-Teams",
                           "messageId": "03e2eebe-2712-4eba-8213-bed5876c0cb1",
                           "applicationMessageId": "69a098a6-497a-4eb9-b74c-b97d3a2a6ace",
@@ -157,9 +157,9 @@
         }
       ]
     },
-    "/oprids": {
-      "summary": "Path used to manage the list of oprids.",
-      "description": "The REST endpoint/path used to list and create zero or more `oprid` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
+    "/users": {
+      "summary": "Path used to manage the list of Users.",
+      "description": "The REST endpoint/path used to list and create zero or more `user` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
       "get": {
         "tags": [
           "default"
@@ -167,7 +167,7 @@
         "parameters": [
           {
             "name": "active",
-            "description": "Retrive either active or inactive OPRIDs",
+            "description": "Retrive either active or inactive Users",
             "schema": {
               "type": "boolean"
             },
@@ -182,22 +182,22 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/oprid"
+                    "$ref": "#/components/schemas/user"
                   }
                 }
               }
             },
-            "description": "Successful response - returns an array of `oprid` entities."
+            "description": "Successful response - returns an array of `user` entities."
           }
         },
-        "operationId": "get-oprids",
-        "summary": "List All OPRIDs",
-        "description": "Gets a list of all `oprid` entities."
+        "operationId": "get-users",
+        "summary": "List All Users",
+        "description": "Gets a list of all `user` entities."
       }
     },
-    "/oprids/{oprid}": {
-      "summary": "Path used to manage a single oprid.",
-      "description": "The REST endpoint/path used to get, update, and delete single instances of an `oprid`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
+    "/users/{user}": {
+      "summary": "Path used to manage a single User.",
+      "description": "The REST endpoint/path used to get, update, and delete single instances of a `user`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
       "get": {
         "tags": [
           "default"
@@ -207,27 +207,27 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/opridResponse"
+                  "$ref": "#/components/schemas/UserResponse"
                 }
               }
             },
-            "description": "Successful response - returns a single `oprid`."
+            "description": "Successful response - returns a single `user`."
           },
           "404": {
-            "description": " `oprid` was not found."
+            "description": " `user` was not found."
           }
         },
-        "operationId": "get-oprid",
-        "summary": "Get an OPRID",
-        "description": "Gets the details of a single instance of an `oprid`."
+        "operationId": "get-user",
+        "summary": "Get a User",
+        "description": "Gets the details of a single instance of a `user`."
       },
       "put": {
         "requestBody": {
-          "description": "Updated `oprid` information.",
+          "description": "Updated `user` information.",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/opridResponse"
+                "$ref": "#/components/schemas/userResponse"
               }
             }
           },
@@ -244,9 +244,9 @@
             "$ref": "#/components/responses/error"
           }
         },
-        "operationId": "update-oprid",
-        "summary": "Create or update an OPRID",
-        "description": "Updates an existing `oprid`."
+        "operationId": "update-user",
+        "summary": "Create or update a User",
+        "description": "Updates an existing `user`."
       },
       "delete": {
         "tags": [
@@ -257,14 +257,14 @@
             "description": "Successful response."
           }
         },
-        "operationId": "delete-oprid",
-        "summary": "Delete a OPRID",
-        "description": "Deletes an existing `oprid`."
+        "operationId": "delete-user",
+        "summary": "Delete a User",
+        "description": "Deletes an existing `user`."
       },
       "parameters": [
         {
-          "name": "oprid",
-          "description": "A PeopleSOft OPRID.",
+          "name": "user",
+          "description": "A User.",
           "schema": {
             "type": "string"
           },
@@ -273,8 +273,8 @@
         }
       ]
     },
-    "/oprids/{oprid}/mappings/": {
-      "summary": "Path to manage `oprid' application mappings",
+    "/users/{user}/mappings/": {
+      "summary": "Path to manage `user` application mappings",
       "get": {
         "tags": [
           "default"
@@ -291,11 +291,11 @@
                 }
               }
             },
-            "description": "All mappings for the `oprid` have been retrieved."
+            "description": "All mappings for the `user` have been retrieved."
           }
         },
-        "operationId": "get-oprid-mappigs",
-        "summary": "Get all application mappings for an OPRID"
+        "operationId": "get-user-mappigs",
+        "summary": "Get all application mappings for a User"
       },
       "post": {
         "requestBody": {
@@ -326,12 +326,12 @@
             "$ref": "#/components/responses/error"
           }
         },
-        "operationId": "post-oprid-mapping",
+        "operationId": "post-user-mapping",
         "summary": "Create a mapping for the given application."
       },
       "parameters": [
         {
-          "name": "oprid",
+          "name": "user",
           "schema": {
             "type": "string"
           },
@@ -340,8 +340,8 @@
         }
       ]
     },
-    "/oprids/{oprid}/mappings/{id}": {
-      "summary": "Path used to manage a single `oprid` application mapping.",
+    "/users/{user}/mappings/{mapping}": {
+      "summary": "Path used to manage a single `user` application mapping.",
       "get": {
         "tags": [
           "default"
@@ -355,14 +355,14 @@
                 }
               }
             },
-            "description": "The requested `oprid` application mapping."
+            "description": "The requested `user` application mapping."
           },
           "404": {
             "description": "The requested mapping does not exist."
           }
         },
-        "operationId": "get-oprid-mapping",
-        "summary": "Get an OPRID application mapping."
+        "operationId": "get-user-mapping",
+        "summary": "Get a User application mapping."
       },
       "put": {
         "requestBody": {
@@ -389,8 +389,8 @@
             "description": "The requested mapping does not exist."
           }
         },
-        "operationId": "update-oprid-mapping",
-        "summary": "Update the OPRID application mapping."
+        "operationId": "update-user-mapping",
+        "summary": "Update the User application mapping."
       },
       "delete": {
         "tags": [
@@ -404,12 +404,12 @@
             "description": "The requested mapping does not exist."
           }
         },
-        "operationId": "delete-oprid-mapping",
-        "summary": "Delete the OPRID application mapping."
+        "operationId": "delete-user-mapping",
+        "summary": "Delete the User application mapping."
       },
       "parameters": [
         {
-          "name": "oprid",
+          "name": "user",
           "schema": {
             "type": "string"
           },
@@ -515,11 +515,11 @@
             "type": "string"
           },
           "enabled": {
-            "description": "Is the application enabled or not for this OPRID.",
+            "description": "Is the application enabled or not for this User.",
             "type": "boolean"
           },
           "id": {
-            "description": "The OPRID/Application mapping ID.",
+            "description": "The User/Application mapping ID.",
             "type": "string"
           },
           "attributes": {
@@ -541,8 +541,8 @@
           "enabled": true
         }
       },
-      "opridResponse": {
-        "description": "PeopleSoft Oprid",
+      "userResponse": {
+        "description": "a User",
         "type": "object",
         "allOf": [
           {
@@ -553,7 +553,7 @@
             "type": "object",
             "properties": {
               "id": {
-                "description": "The PeopleSoft OPRID",
+                "description": "The User ID",
                 "type": "string"
               },
               "mappings": {
@@ -564,13 +564,13 @@
                 }
               },
               "active": {
-                "description": "Is the OPRID active, that is, can it recieve messages",
+                "description": "Is the User active, that is, can it recieve messages",
                 "type": "boolean"
               }
             }
           },
           {
-            "$ref": "#/components/schemas/oprid"
+            "$ref": "#/components/schemas/user"
           }
         ],
         "example": {
@@ -586,8 +586,8 @@
           ]
         }
       },
-      "oprid": {
-        "title": "Root Type for oprid",
+      "user": {
+        "title": "Root Type for user",
         "description": "",
         "required": [
           "active",
@@ -596,11 +596,11 @@
         "type": "object",
         "properties": {
           "id": {
-            "description": "The PeopleSoft OPRID",
+            "description": "The User ID",
             "type": "string"
           },
           "active": {
-            "description": "This the `oprid` active",
+            "description": "This the `user` active",
             "type": "boolean"
           }
         },
@@ -652,8 +652,8 @@
         "required": [],
         "type": "object",
         "properties": {
-          "oprid": {
-            "description": "The PeopleSoft OPRID the message sent to.",
+          "user": {
+            "description": "The User the message is sent to.",
             "type": "string"
           },
           "messageId": {
@@ -674,7 +674,7 @@
           }
         },
         "example": {
-          "oprid": "0012345",
+          "user": "0012345",
           "application": "MS-Teams",
           "messageId": "69a098a6-497a-4eb9-b74c-b97d3a2a6ace",
           "applicationMessageId": "03e2eebe-2712-4eba-8213-bed5876c0cb1",
