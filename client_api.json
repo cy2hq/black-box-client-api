@@ -11,7 +11,15 @@
   "servers": [
     {
       "url": "https://dev.cy2hub.app/v1",
-      "description": ""
+      "description": "development environment"
+    },
+    {
+      "url": "https://test.cy2hub.app/v1",
+      "description": "test environment"
+    },
+    {
+      "url": "https://api.cy2hub.app/v1",
+      "description": "production environment"
     }
   ],
   "paths": {
