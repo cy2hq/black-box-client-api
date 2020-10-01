@@ -74,7 +74,7 @@
         "description": "Creates a new instance of a `message`."
       }
     },
-    "/messages/{message}": {
+    "/messages/{messageId}": {
       "summary": "Path used to manage a single message.",
       "description": "The REST endpoint/path used to get, update, and delete single instances of an `message`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
       "get": {
@@ -273,8 +273,9 @@
         }
       ]
     },
-    "/users/{user}/mappings/": {
+    "/users/{user}/mappings": {
       "summary": "Path to manage `user` application mappings",
+      "description": " ",
       "get": {
         "tags": [
           "default"
@@ -295,7 +296,8 @@
           }
         },
         "operationId": "get-user-mappigs",
-        "summary": "Get all application mappings for a User"
+        "summary": "Get all application mappings for a User",
+        "description": " "
       },
       "post": {
         "requestBody": {
@@ -327,7 +329,8 @@
           }
         },
         "operationId": "post-user-mapping",
-        "summary": "Create a mapping for the given application."
+        "summary": "Create a mapping for the given application.",
+        "description": " "
       },
       "parameters": [
         {
@@ -362,7 +365,8 @@
           }
         },
         "operationId": "get-user-mapping",
-        "summary": "Get a User application mapping."
+        "summary": "Get a User application mapping.",
+        "description": " "
       },
       "put": {
         "requestBody": {
@@ -390,7 +394,8 @@
           }
         },
         "operationId": "update-user-mapping",
-        "summary": "Update the User application mapping."
+        "summary": "Update the User application mapping.",
+        "description": " "
       },
       "delete": {
         "tags": [
@@ -405,7 +410,8 @@
           }
         },
         "operationId": "delete-user-mapping",
-        "summary": "Delete the User application mapping."
+        "summary": "Delete the User application mapping.",
+        "description": " "
       },
       "parameters": [
         {
@@ -417,7 +423,7 @@
           "required": true
         },
         {
-          "name": "id",
+          "name": "mapping",
           "schema": {
             "type": "string"
           },
@@ -580,7 +586,7 @@
             {
               "application": "MSTeams",
               "enabled": true,
-              "id": "e52b0002-25d1-4c22-9c14-20657f40bf47",
+              "clientId": "e52b0002-25d1-4c22-9c14-20657f40bf47",
               "attributes": []
             }
           ]
@@ -649,7 +655,6 @@
       "applicationError": {
         "title": "Root Type for messageError",
         "description": "An error occured sending a message to a user",
-        "required": [],
         "type": "object",
         "properties": {
           "user": {
