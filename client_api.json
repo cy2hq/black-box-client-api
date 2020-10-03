@@ -227,7 +227,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/userResponse"
+                "$ref": "#/components/schemas/userRequest"
               }
             }
           },
@@ -304,7 +304,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/mapping"
+                "$ref": "#/components/schemas/mappingRequest"
               }
             }
           },
@@ -547,6 +547,42 @@
           "enabled": true
         }
       },
+      "mappingRequest": {
+        "title": "Create an application mapping",
+        "description": "Application accounts belong to the user",
+        "required": [
+          "application",
+          "enabled",
+          "clientId"
+        ],
+        "type": "object",
+        "properties": {
+          "application": {
+            "description": "The application being mapped.",
+            "type": "string"
+          },
+          "enabled": {
+            "description": "Is the application enabled or not for this User.",
+            "type": "boolean"
+          },
+          "attributes": {
+            "description": "Additional application attributes",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/attribute"
+            }
+          },
+          "clientId": {
+            "description": "The user's ID for the given application.",
+            "type": "string"
+          }
+        },
+        "example": {
+          "application": "MSTeams",
+          "clientId": "8f22edc2-3f2e-4324-a4cf-8f0d21e5a0b1",
+          "enabled": true
+        }
+      },
       "userResponse": {
         "description": "a User",
         "type": "object",
@@ -685,7 +721,51 @@
           "applicationMessageId": "03e2eebe-2712-4eba-8213-bed5876c0cb1",
           "error": "something went wrong"
         }
-      }
+      },
+      "userRequest": {
+        "title": "userRequest",
+        "type": "object",
+        "allOf": [
+          {
+            "required": [
+              "id",
+              "active"
+            ],
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "The User ID",
+                "type": "string"
+              },
+              "mappings": {
+                "description": "Application mappings",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/mappingRequest"
+                }
+              },
+              "active": {
+                "description": "Is the User active, that is, can it recieve messages",
+                "type": "boolean"
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/user"
+          }
+        ],
+        "example": {
+          "id": "0012345",
+          "active": true,
+          "mappings": [
+            {
+              "application": "MSTeams",
+              "enabled": true,
+              "clientId": "e52b0002-25d1-4c22-9c14-20657f40bf47",
+              "attributes": []
+            }
+          ]
+        }      }
     },
     "responses": {
       "error": {
