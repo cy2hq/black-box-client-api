@@ -70,7 +70,7 @@
           }
         },
         "operationId": "send-message",
-        "summary": "Sends a message to a group of `user`s",
+        "summary": "Sends a message to a group of users",
         "description": "Creates a new instance of a `message`."
       }
     },
