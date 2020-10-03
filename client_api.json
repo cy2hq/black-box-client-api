@@ -69,8 +69,8 @@
             "$ref": "#/components/responses/error"
           }
         },
-        "operationId": "create-message",
-        "summary": "Create a message",
+        "operationId": "send-message",
+        "summary": "Sends a message to a group of `user`s",
         "description": "Creates a new instance of a `message`."
       }
     },
@@ -765,7 +765,8 @@
               "attributes": []
             }
           ]
-        }      }
+        }
+      }
     },
     "responses": {
       "error": {
