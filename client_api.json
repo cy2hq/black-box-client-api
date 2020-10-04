@@ -124,9 +124,8 @@
                       "applicationErrors": [
                         {
                           "user": "0012345",
-                          "application": "MS-Teams",
                           "messageId": "03e2eebe-2712-4eba-8213-bed5876c0cb1",
-                          "applicationMessageId": "69a098a6-497a-4eb9-b74c-b97d3a2a6ace",
+                          "application": "MS-Teams",
                           "error": "something went wrong sending to MS Teams"
                         }
                       ]
@@ -135,10 +134,10 @@
                 }
               }
             },
-            "description": "Successful response - returns a single `message`."
+            "description": "Returns the status of a single `message` request."
           },
           "404": {
-            "description": "The `message` was not found."
+            "description": "The `message` request was not found."
           }
         },
         "operationId": "get-message",
@@ -693,32 +692,27 @@
         "description": "An error occured sending a message to a user",
         "type": "object",
         "properties": {
-          "user": {
-            "description": "The User the message is sent to.",
-            "type": "string"
-          },
           "messageId": {
             "description": "The ID of the message sent from PeopleSoft.",
             "type": "string"
           },
-          "error": {
-            "description": "An error message if an error occured processing the message from PeopleSoft.",
+          "user": {
+            "description": "The User the message is sent to.",
             "type": "string"
           },
           "application": {
             "description": "The ID of the message sent to the requested application.",
             "type": "string"
           },
-          "applicationMessageId": {
-            "description": "The ID of the message sent to the requested application.",
+          "error": {
+            "description": "An error message if an error occured processing the message from PeopleSoft.",
             "type": "string"
           }
         },
         "example": {
+          "messageId": "69a098a6-497a-4eb9-b74c-b97d3a2a6ace",
           "user": "0012345",
           "application": "MS-Teams",
-          "messageId": "69a098a6-497a-4eb9-b74c-b97d3a2a6ace",
-          "applicationMessageId": "03e2eebe-2712-4eba-8213-bed5876c0cb1",
           "error": "something went wrong"
         }
       },
